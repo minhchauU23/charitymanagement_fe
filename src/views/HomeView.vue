@@ -1,9 +1,20 @@
 <template>
-  <div>This is home view</div>
+  <button @click="click">click test</button>
 </template>
 
 <script>
-export default {}
+import { useAuthStore } from '@/stores/authStore'
+
+export default {
+  setup() {
+    const authStore = useAuthStore()
+
+    function click() {
+      authStore.clickTest()
+    }
+    return { authStore, click }
+  },
+}
 </script>
 
 <style>
