@@ -18,10 +18,11 @@ app
   .component('admin-layout', AdminLayout)
 
 router.beforeEach((to, from) => {
+  const authStore = useAuthStore()
   //tu choi login page khi da dang nhap
   if (
     (to.name === 'login-route' || to.name === 'register-route') &&
-    localStorage.getItem('user')
+    authStore.user
   ) {
     console.log('in false logiin')
     return from

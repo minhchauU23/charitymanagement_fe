@@ -64,6 +64,7 @@
           src="https://static.vecteezy.com/system/resources/previews/002/002/403/non_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
           alt="Rounded avatar"
         />
+        {{ user.email }}
         <button
           class="px-6 py-2 text-center bg-gray-200 border rounded-md"
           @click="authStore.logout"
@@ -88,14 +89,14 @@ export default {
   setup() {
     const authStore = useAuthStore()
     const router = useRouter()
-    const { isLoggedIn } = storeToRefs(authStore)
+    const { isLoggedIn, user } = storeToRefs(authStore)
     const handleLogout = function () {
       authStore.logout
       router.push({ name: 'home-route' })
 
       //show pop up
     }
-    return { authStore, handleLogout, isLoggedIn }
+    return { authStore, handleLogout, isLoggedIn, user }
   },
 }
 </script>
