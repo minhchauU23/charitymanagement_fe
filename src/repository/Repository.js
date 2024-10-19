@@ -1,13 +1,13 @@
 import axios from 'axios'
-import { RepositoryFactory } from './RepositoryFactory'
+import AuthenticationRepository from './AuthenticationRepository'
+import LocalStorageRepository from './LocalStorageRepository'
 
-const AuthenticationRepository = RepositoryFactory.get('authentication')
-const LocalStorageRepository = RepositoryFactory.get('localStorage')
 const baseDomain = 'http://localhost:8080/'
 const baseURL = `${baseDomain}api/v1`
 const Repository = axios.create({
   baseURL,
 })
+
 Repository.interceptors.request.use(
   config => {
     const token = LocalStorageRepository.getAccessToken()

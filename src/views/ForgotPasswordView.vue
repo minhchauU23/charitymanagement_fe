@@ -10,12 +10,16 @@
     </router-link>
 
     <form
-      @submit.prevent="handleLogin"
       class="bg-white border-gray-100 shadow-sm border rounded-lg flex flex-col w-full max-w-lg p-10 justify-start"
       :class="authStore.getError ? 'mt-6' : 'mt-11'"
     >
       <div class="input-container flex flex-col items-stretch">
-        <label class="text-sm font-semibold" for="username">Email</label>
+        <label class="text-sm font-semibold" for="username"
+          >Nhập email của bạn</label
+        >
+        <!-- <div class="text-xs font-thin">
+          Chúng tôi sẽ gửi mật khẩu mới vào email
+        </div> -->
         <input
           v-model="email"
           type="text"
@@ -26,30 +30,12 @@
           errors.emailError
         }}</span>
       </div>
-      <div class="input-container flex flex-col items-stretch mt-6">
-        <label class="text-sm font-semibold" for="password">Mật khẩu</label>
-        <input
-          v-model="password"
-          class="rounded-md border-2 border-gray-200 h-10 px-3 mt-2 focus:outline-pink-300"
-          type="password"
-          :class="errors.passwordError ? 'border-red-500' : ''"
-        />
-        <span v-if="errors?.passwordError" class="text-red-500 text-xs p-1">{{
-          errors.passwordError
-        }}</span>
-      </div>
-      <div
-        class="text-right text-sm font-bold w-full min-w-full mt-3 hover:text-pink-500 text-pink-400"
-      >
-        <router-link :to="{ name: 'forgot-password-route' }" replace class=""
-          ><span>Quên mật khẩu</span></router-link
-        >
-      </div>
+
       <button
         type="submit"
         class="min-w-full py-2 mt-3 font-bold text-sm text-white h-10 bg-pink-500 hover:bg-pink-400 rounded-md"
       >
-        Đăng nhập
+        Gửi yêu cầu
       </button>
     </form>
     <div class="flex text-sm mt-8">
@@ -74,7 +60,6 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const email = ref()
-    const password = ref()
     const authStore = useAuthStore()
     const router = useRouter()
     const { isLoggedIn, errors } = storeToRefs(authStore)
@@ -85,7 +70,6 @@ export default {
     const handleLogin = () => {
       authStore.login({
         email: email.value,
-        password: password.value,
       })
       // console.log(authStore.getLoggedIn)
       // if (authStore.getLoggedIn) {
@@ -94,10 +78,10 @@ export default {
       // console.log(authStore.getLoggedIn)
     }
 
-    return { email, password, authStore, handleLogin, isLoggedIn, errors }
+    return { email, authStore, handleLogin, isLoggedIn, errors }
   },
 }
 </script>
-
-<style>
+  
+  <style>
 </style>    

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="form-wrapper flex flex-col items-center justify-center h-screen font-Poppins"
+    class="form-wrapper flex flex-col items-center justify-center min-h-screen font-Poppins"
   >
     <router-link
       :to="{ name: 'home-route' }"
@@ -22,7 +22,11 @@
           v-model="firstName"
           type="text"
           class="rounded-md border-2 border-solid border-gray-200 h-10 px-3 mt-2 focus:outline-indigo-400"
+          :class="errors.firstNameError ? 'border-red-500' : ''"
         />
+        <span v-if="errors.firstNameError" class="text-red-500 text-xs p-1">{{
+          errors.firstNameError
+        }}</span>
       </div>
       <div class="input-container flex flex-col items-stretch mt-6">
         <label class="text-sm font-semibold" for="username">Tên</label>
@@ -30,7 +34,11 @@
           v-model="lastName"
           type="text"
           class="rounded-md border-2 border-solid border-gray-200 h-10 px-3 mt-2 focus:outline-indigo-400"
+          :class="errors.lastNameError ? 'border-red-500' : ''"
         />
+        <span v-if="errors.lastNameError" class="text-red-500 text-xs p-1">{{
+          errors.lastNameError
+        }}</span>
       </div>
       <div class="input-container flex flex-col items-stretch mt-6">
         <label class="text-sm font-semibold" for="username"
@@ -40,7 +48,11 @@
           v-model="phone"
           type="text"
           class="rounded-md border-2 border-solid border-gray-200 h-10 px-3 mt-2 focus:outline-indigo-400"
+          :class="errors.phoneError ? 'border-red-500' : ''"
         />
+        <span v-if="errors.phoneError" class="text-red-500 text-xs p-1">{{
+          errors.phoneError
+        }}</span>
       </div>
       <div class="input-container flex flex-col items-stretch mt-6">
         <label class="text-sm font-semibold" for="username">Email</label>
@@ -48,7 +60,11 @@
           v-model="email"
           type="text"
           class="rounded-md border-2 border-solid border-gray-200 h-10 px-3 mt-2 focus:outline-indigo-400"
+          :class="errors.emailError ? 'border-red-500' : ''"
         />
+        <span v-if="errors.emailError" class="text-red-500 text-xs p-1">{{
+          errors.emailError
+        }}</span>
       </div>
       <div class="input-container flex flex-col items-stretch mt-6">
         <label class="text-sm font-semibold" for="password">Mật khẩu</label>
@@ -56,7 +72,11 @@
           v-model="password"
           class="rounded-md border-2 border-gray-200 h-10 px-3 mt-2 focus:outline-indigo-400"
           type="password"
+          :class="errors.passwordError ? 'border-red-500' : ''"
         />
+        <span v-if="errors.passwordError" class="text-red-500 text-xs p-1">{{
+          errors.passwordError
+        }}</span>
       </div>
       <button
         type="submit"
@@ -64,12 +84,12 @@
       >
         Đăng ký
       </button>
-      <div
-        v-if="error"
+      <!-- <div
+        v-if="errors"
         class="text-sm text-red-500 mt-6 transition-[height] duration-500 ease-out"
       >
-        <span>{{ error }}</span>
-      </div>
+        <span>{{ errors }}</span>
+      </div> -->
     </form>
     <div class="flex text-sm mt-8">
       <span
@@ -99,7 +119,7 @@ export default {
     const phone = ref()
     const authStore = useAuthStore()
     const router = useRouter()
-    const { isRegisted, error } = storeToRefs(authStore)
+    const { isRegisted, errors } = storeToRefs(authStore)
 
     watch(isRegisted, () => {
       console.log('at registed view ' + isRegisted)
@@ -124,7 +144,7 @@ export default {
       phone,
       authStore,
       isRegisted,
-      error,
+      errors,
       handleRegister,
     }
   },
