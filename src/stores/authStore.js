@@ -4,16 +4,23 @@ import { RepositoryFactory } from '@/repository/RepositoryFactory'
 const AuthenticationRepository = RepositoryFactory.get('authentication')
 const LocalStorageRepository = RepositoryFactory.get('localStorage')
 const UserRepository = RepositoryFactory.get('users')
+const ErrorCodeRepository = RepositoryFactory.get('errorCode')
 
 const userInfor = LocalStorageRepository.getUserInfor()
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(userInfor)
   const isLoggedIn = ref(userInfor ? true : false)
   const isRegisted = ref(false)
-  const error = ref()
+  const errors = ref({
+    emailError: '',
+    passwordError: '',
+    firstNameError: '',
+    lastNameError: '',
+    phoneError: '',
+  })
 
   const clearError = function () {
-    error.value = ''
+    errors.value = ''
   }
 
   const login = function (loginRequest) {
@@ -22,11 +29,18 @@ export const useAuthStore = defineStore('auth', () => {
         LocalStorageRepository.saveUser(JSON.stringify(response.data))
         user.value = response.data.infor
         isLoggedIn.value = true
-        clearError()
+        // clearError()
       })
       .catch(err => {
         console.log(err)
-        error.value = err.response.data.error
+        const response = err.response.data.errors
+        console.log(response)
+
+        const flatError = {}
+        for (const [code, message] of Object.entries(response)) {
+          flatError[ErrorCodeRepository.get(code)] = message
+        }
+        errors.value = flatError
       })
   }
 
@@ -36,11 +50,18 @@ export const useAuthStore = defineStore('auth', () => {
         console.log(response.data)
         isRegisted.value = true
         console.log(`registed in store ${isRegisted.value}`)
-        clearError()
+        // clearError()
       })
       .catch(err => {
-        console.log(err.response.data)
-        error.value = err.response.data.error
+        console.log(err)
+        const response = err.response.data.errors
+        console.log(response)
+
+        const flatError = {}
+        for (const [code, message] of Object.entries(response)) {
+          flatError[ErrorCodeRepository.get(code)] = message
+        }
+        errors.value = flatError
       })
   }
 
@@ -67,7 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     isLoggedIn,
     user,
-    error,
+    errors,
     isRegisted,
     // getLoggedIn,
     // getRegisted,

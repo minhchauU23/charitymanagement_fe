@@ -1,4 +1,5 @@
 import AboutView from '@/views/AboutView.vue'
+import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ReferenceView from '@/views/ReferenceView.vue'
@@ -52,6 +53,14 @@ const router = createRouter({
       path: '/register',
       name: 'register-route',
       component: RegisterView,
+      meta: {
+        layout: 'authentication',
+      },
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password-route',
+      component: ForgotPasswordView,
       meta: {
         layout: 'authentication',
       },
