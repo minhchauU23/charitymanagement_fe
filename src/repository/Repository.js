@@ -27,12 +27,14 @@ Repository.interceptors.response.use(
   res => {
     return res
   },
-  error => {
+  async error => {
     const originalConfig = error.config
+    console.log(originalConfig.url)
     if (
-      originalConfig.url !== '/login' &&
+      originalConfig.url !== '/auth/login' &&
       error.response.status === 401 &&
-      !originalConfig._retry
+      !originalConfig._retry &&
+      LocalStorageRepository.getRefreshToken() !== null
     ) {
       originalConfig._retry = true
 

@@ -11,7 +11,7 @@
 
     <form
       class="bg-white border-gray-100 shadow-sm border rounded-lg flex flex-col w-full max-w-lg p-10 justify-start"
-      :class="authStore.getError ? 'mt-6' : 'mt-11'"
+      @submit.prevent="handleForgotPassword"
     >
       <div class="input-container flex flex-col items-stretch">
         <label class="text-sm font-semibold" for="username"
@@ -24,10 +24,13 @@
           v-model="email"
           type="text"
           class="rounded-md border-2 border-solid border-gray-200 h-10 px-3 mt-2 focus:outline-pink-300"
-          :class="errors.emailError ? 'border-red-500' : ''"
+          :class="errors.emailError || errors.userError ? 'border-red-500' : ''"
         />
         <span v-if="errors.emailError" class="text-red-500 text-xs p-1">{{
           errors.emailError
+        }}</span>
+        <span v-if="errors.userError" class="text-red-500 text-xs p-1">{{
+          errors.userError
         }}</span>
       </div>
 
@@ -53,32 +56,28 @@
 </template>
 
 <script>
-import { useAuthStore } from '@/stores/authStore'
+import { useUserStore } from '@/stores/userStore'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
   setup() {
     const email = ref()
-    const authStore = useAuthStore()
+    const userStore = useUserStore()
     const router = useRouter()
-    const { isLoggedIn, errors } = storeToRefs(authStore)
-    watch(isLoggedIn, () => {
-      router.replace({ name: 'home-route' })
+    const { errors, isForgotSuccess } = storeToRefs(userStore)
+    watch(isForgotSuccess, () => {
+      router.replace({ name: 'reset-password-route' })
+      errors.value = ''
     })
 
-    const handleLogin = () => {
-      authStore.login({
+    const handleForgotPassword = () => {
+      userStore.forgotPassword({
         email: email.value,
       })
-      // console.log(authStore.getLoggedIn)
-      // if (authStore.getLoggedIn) {
-
-      // }
-      // console.log(authStore.getLoggedIn)
     }
 
-    return { email, authStore, handleLogin, isLoggedIn, errors }
+    return { email, userStore, handleForgotPassword, errors }
   },
 }
 </script>
