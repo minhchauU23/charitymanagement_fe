@@ -1,11 +1,14 @@
 <template>
-  <button @click="click">click test</button>
+  <slider-component></slider-component>
+  <div>Hello</div>
 </template>
 
 <script>
 import { useAuthStore } from '@/stores/authStore'
+import SliderComponent from '@/components/SliderComponent.vue'
 
 export default {
+  components: { SliderComponent },
   setup() {
     const authStore = useAuthStore()
 

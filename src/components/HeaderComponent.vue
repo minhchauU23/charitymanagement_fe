@@ -1,12 +1,14 @@
 <template>
-  <header class="py-4 w-screen mx-auto font-Poppins bg-white border shadow-sm">
+  <header
+    class="py-4 w-screen mx-auto font-Poppins bg-white border shadow-sm fixed"
+  >
     <nav
       class="flex lg:justify-center justify-between items-center mx-4 lg:mx-16"
     >
       <router-link
         :to="{ name: 'home-route' }"
-        class="lg:basis-1/6 basis-1/2 lg:min-w-56 mã text-center text-3xl font-bold cursor-pointer"
-        ><span>Give<span class="text-pink-500">Well</span></span>
+        class="bg-gradient-to-r from-indigo-500 to-pink-500 text-transparent bg-clip-text lg:basis-1/6 basis-1/2 lg:min-w-56 text-center text-3xl font-bold cursor-pointer"
+        ><span>Give<span>Well</span></span>
       </router-link>
 
       <ul

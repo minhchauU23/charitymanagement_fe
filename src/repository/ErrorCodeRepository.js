@@ -16,6 +16,8 @@ const error = {
   FIRST_NAME_INVALID: 'firstNameError',
   LAST_NAME_INVALID: 'lastNameError',
   PHONE_INVALID: 'phoneError',
+  REPEAT_PASSWORD_NOT_MATCHING: 'repeatPasswordError',
+  RESET_PASSWORD_CODE_INVALID: 'resetPassworCodeError',
 }
 
 export default {

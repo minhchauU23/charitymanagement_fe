@@ -7,4 +7,18 @@ export default {
       return response.data
     })
   },
+  async forgotPassword(payload) {
+    return Repository.post(`${resource}/forgot_password`, payload).then(
+      response => {
+        return response.data
+      },
+    )
+  },
+  async resetPassword(payload) {
+    return Repository.post(`${resource}/reset_password`, payload).then(
+      response => {
+        return response.data
+      },
+    )
+  },
 }

@@ -45,6 +45,11 @@
           ><span>Quên mật khẩu</span></router-link
         >
       </div>
+      <span
+        v-if="errors?.badCredentialError"
+        class="text-red-500 text-xs p-1"
+        >{{ errors.badCredentialError }}</span
+      >
       <button
         type="submit"
         class="min-w-full py-2 mt-3 font-bold text-sm text-white h-10 bg-pink-500 hover:bg-pink-400 rounded-md"
@@ -87,11 +92,6 @@ export default {
         email: email.value,
         password: password.value,
       })
-      // console.log(authStore.getLoggedIn)
-      // if (authStore.getLoggedIn) {
-
-      // }
-      // console.log(authStore.getLoggedIn)
     }
 
     return { email, password, authStore, handleLogin, isLoggedIn, errors }

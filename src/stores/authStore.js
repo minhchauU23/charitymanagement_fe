@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { RepositoryFactory } from '@/repository/RepositoryFactory'
 const AuthenticationRepository = RepositoryFactory.get('authentication')
 const LocalStorageRepository = RepositoryFactory.get('localStorage')
-const UserRepository = RepositoryFactory.get('users')
 const ErrorCodeRepository = RepositoryFactory.get('errorCode')
 
 const userInfor = LocalStorageRepository.getUserInfor()
@@ -81,10 +80,6 @@ export const useAuthStore = defineStore('auth', () => {
       })
   }
 
-  const clickTest = function () {
-    UserRepository.test()
-  }
-
   return {
     isLoggedIn,
     user,
@@ -98,6 +93,5 @@ export const useAuthStore = defineStore('auth', () => {
     logout,
     register,
     refresh,
-    clickTest,
   }
 })
