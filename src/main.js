@@ -8,12 +8,12 @@ import AdminLayout from './layout/AdminLayout.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from './stores/authStore'
 import { useUserStore } from './stores/userStore'
-import messaging from './config/firbaseConfig'
+// import messaging from './config/firebase'
 
 const pinia = createPinia()
 const app = createApp(App)
+// app.config.globalProperties.$messaging = messaging
 
-app.config.globalProperties.$messaging = messaging
 app
   .use(pinia)
   .use(router)

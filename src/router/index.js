@@ -1,4 +1,5 @@
 import AboutView from '@/views/AboutView.vue'
+import CampaignsView from '@/views/CampaignsView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -20,7 +21,7 @@ const router = createRouter({
     {
       path: '/campaigns',
       name: 'campaigns-route',
-      component: AboutView,
+      component: CampaignsView,
       meta: {
         layout: 'user',
       },

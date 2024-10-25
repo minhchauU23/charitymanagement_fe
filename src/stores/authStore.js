@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { RepositoryFactory } from '@/repository/RepositoryFactory'
+import { useNotificationStore } from './notificationsStore'
 const AuthenticationRepository = RepositoryFactory.get('authentication')
 const LocalStorageRepository = RepositoryFactory.get('localStorage')
 const ErrorCodeRepository = RepositoryFactory.get('errorCode')
 
 const userInfor = LocalStorageRepository.getUserInfor()
 export const useAuthStore = defineStore('auth', () => {
+  const notificationStore = useNotificationStore()
   const user = ref(userInfor)
   const isLoggedIn = ref(userInfor ? true : false)
   const isRegisted = ref(false)
@@ -28,6 +30,8 @@ export const useAuthStore = defineStore('auth', () => {
         LocalStorageRepository.saveUser(JSON.stringify(response.data))
         user.value = response.data.infor
         isLoggedIn.value = true
+        console.log('IsLoggedIn at auth store' + isLoggedIn.value)
+        notificationStore.requestRegistration()
         // clearError()
       })
       .catch(err => {
@@ -35,6 +39,7 @@ export const useAuthStore = defineStore('auth', () => {
         const response = err.response.data.errors
         console.log(response)
 
+        console.log('IsLoggedIn at auth store' + isLoggedIn.value)
         const flatError = {}
         for (const [code, message] of Object.entries(response)) {
           flatError[ErrorCodeRepository.get(code)] = message

@@ -1,6 +1,11 @@
 <template>
-  <slider-component></slider-component>
-  <div>Hello</div>
+  <!-- <div class="pt-20">
+    
+    <section></section>
+  </div> -->
+  <section class="content pt-20">
+    <slider-component></slider-component>
+  </section>
 </template>
 
 <script>
