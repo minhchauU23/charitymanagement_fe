@@ -84,6 +84,7 @@ export default {
     const router = useRouter()
     const { isLoggedIn, errors } = storeToRefs(authStore)
     watch(isLoggedIn, () => {
+      console.log('LoggeIn at login view change')
       router.replace({ name: 'home-route' })
     })
 

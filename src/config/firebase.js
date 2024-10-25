@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from 'firebase/app'
-import firebase from 'firebase/app'
-import { getMessaging } from 'firebase/messaging/sw'
+import { initializeApp } from 'firebase/app'
+import { getMessaging } from 'firebase/messaging'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,11 +17,52 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
-// const analytics = getAnalytics(app);
-const messaging = firebase.messaging()
-// messaging.getToken({
-//   vapidKey:
-//     'BPZ69p-svazl1OfeW2YiIT9pwyn139b2RDoANAs-hTwjWEYG7YFx_UX_lxYOpqi4TuBg2FxgqG_-lZDGYHK3aVQ',
+const app = initializeApp(firebaseConfig)
+// const analytics = getAnalytics(app)
+
+// Initialize Firebase Cloud Messaging and get a reference to the service
+const firebaseMessaging = getMessaging(app)
+// const permission = await Notification.requestPermission()
+// Notification.requestPermission().then(permission => {
+//   if (permission === 'granted') {
+//     console.log('Notification permission granted.')
+//   }
 // })
-export { messaging }
+
+// function requestPermission() {
+//   console.log('Requesting permission...');
+//   Notification.requestPermission().then((permission) => {
+//     if (permission === 'granted') {
+//       console.log('Notification permission granted.');
+//     }
+//   })
+// }
+
+// getToken(messaging, {
+//   vapidKey:
+//     'BP13lW1FFegT0hzuOB22BOFE6EhN-z4eq7ex71cGFh41fYAyqaRa2BrmQ0peatxrn_yG9PEN1njT-UEx1JMMk9w',
+// })
+//   .then(currentToken => {
+//     if (currentToken) {
+//       console.log(currentToken)
+//       // Send the token to your server and update the UI if necessary
+//       // ...
+//     } else {
+//       Notification.requestPermission().then(permission => {
+//         if (permission === 'granted') {
+//           console.log('Notification permission granted.')
+//         }
+//       })
+//       // Show permission request UI
+//       console.log(
+//         'No registration token available. Request permission to generate one.',
+//       )
+//       // ...
+//     }
+//   })
+//   .catch(err => {
+//     console.log('An error occurred while retrieving token. ', err)
+//     // ...
+//   })
+
+export { firebaseMessaging }

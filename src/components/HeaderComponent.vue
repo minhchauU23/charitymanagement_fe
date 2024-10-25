@@ -65,6 +65,23 @@
           >
         </div>
         <div v-else class="min-w-56 flex justify-end text-sm items-center">
+          <div @click="testNotify">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+              />
+            </svg>
+          </div>
+
           <img
             class="h-10 rounded-full"
             src="https://static.vecteezy.com/system/resources/previews/002/002/403/non_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
@@ -139,14 +156,19 @@
 
 <script>
 import { useAuthStore } from '@/stores/authStore'
+import { useNotificationStore } from '@/stores/notificationsStore'
+// import { useNotificationStore } from '@/stores/notificationsStore'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 // import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
+// import { messaging, getToken } from '@/config/firebase'
+// import { useNotificationStore } from '@/stores/firebaseStore'
 export default {
   setup() {
     const authStore = useAuthStore()
+    const notificationsStore = useNotificationStore()
+
     const router = useRouter()
     const { isLoggedIn, user } = storeToRefs(authStore)
     const isShowMenu = ref(false)
@@ -159,6 +181,10 @@ export default {
       router.push({ name: 'home-route' })
       //show pop up
     }
+    const testNotify = function () {
+      notificationsStore.test()
+    }
+
     return {
       authStore,
       handleLogout,
@@ -166,6 +192,7 @@ export default {
       user,
       showMenu,
       isShowMenu,
+      testNotify,
     }
   },
 }

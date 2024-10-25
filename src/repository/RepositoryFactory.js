@@ -1,6 +1,7 @@
 import AuthenticationRepository from './AuthenticationRepository'
 import ErrorCodeRepository from './ErrorCodeRepository'
 import LocalStorageRepository from './LocalStorageRepository'
+import NotificationRepository from './NotificationRepository'
 import UserRepository from './UserRepository'
 
 const repositories = {
@@ -8,6 +9,7 @@ const repositories = {
   localStorage: LocalStorageRepository,
   errorCode: ErrorCodeRepository,
   users: UserRepository,
+  notifications: NotificationRepository,
 }
 
 export const RepositoryFactory = {
